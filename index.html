@@ -6,38 +6,29 @@
     <title>Redirecting to YouTube...</title>
     <script>
         window.onload = function() {
-            // 1. Получаем параметры из URL
             const urlParams = new URLSearchParams(window.location.search);
             const handle = urlParams.get('handle') || '';
-            let rawQuery = urlParams.get('query') || '';
+            let rawQuery = urlParams.get('query') || 'Carpetman OR Black Soil';
 
-            // Декодируем query
             try {
                 rawQuery = decodeURIComponent(rawQuery);
-            } catch(e) {
-                console.log(e);
-            }
+            } catch(e) {}
 
-            // 2. Унифицируем запрос: если пришел старый вариант без OR или с чертой "|" — заменяем на "Carpetman OR Black Soil"
-            if (!rawQuery || rawQuery.includes('|') || rawQuery === 'Carpetman Black Soil') {
-                rawQuery = 'Carpetman OR Black Soil';
-            }
+            // Нормализуем хэндл (гарантируем знак @ вначале)
+            const cleanHandle = handle.startsWith('@') ? handle : '@' + handle.trim();
+            
+            // Формируем запрос: "@Handle Carpetman OR Black Soil"
+            const fullQuery = cleanHandle + " " + rawQuery;
+            const encodedQuery = encodeURIComponent(fullQuery);
 
-            // 3. Очищаем хендл от знака @
-            const cleanHandle = handle.replace('@', '').trim();
-            const encodedQuery = encodeURIComponent(rawQuery);
-
-            // 4. Формируем универсальный URL внутреннего поиска канала
-            const targetUrl = "https://www.youtube.com/@" + cleanHandle + "/search?query=" + encodedQuery;
-
-            // 5. Выполняем редирект (ОС устройства сама решит — открыть приложение или браузер)
-            window.location.href = targetUrl;
+            // Перенаправляем на глобальный поиск YouTube с фильтром по каналу
+            window.location.href = "https://www.youtube.com/results?search_query=" + encodedQuery;
         };
     </script>
 </head>
 <body>
     <p style="text-align: center; margin-top: 25%; font-family: sans-serif; color: #555; font-size: 18px;">
-        Переход на YouTube...
+        Redirecting to YouTube...
     </p>
 </body>
 </html>
