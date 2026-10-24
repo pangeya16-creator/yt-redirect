@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting to YouTube...</title>
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const handle = urlParams.get('handle') || '';
+            const query = urlParams.get('query') || 'Carpetman Black Soil';
+            
+            const cleanHandle = handle.replace('@', '');
+            const searchQuery = encodeURIComponent(cleanHandle + ' ' + query);
+            
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            
+            if (isMobile) {
+                window.location.href = "https://www.youtube.com/results?search_query=" + searchQuery;
+            } else {
+                window.location.href = "https://www.youtube.com/results?search_query=" + searchQuery;
+            }
+        };
+    </script>
+</head>
+<body>
+    <p style="text-align: center; margin-top: 20%; font-family: sans-serif; color: #666;">
+        Redirecting to YouTube...
+    </p>
+</body>
+</html>
