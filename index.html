@@ -9,8 +9,12 @@
             const handle = urlParams.get('handle') || '';
             const query = urlParams.get('query') || 'Carpetman Black Soil';
             
-            const cleanHandle = handle.replace('@', '');
-            const searchQuery = encodeURIComponent(cleanHandle + ' ' + query);
+            // Очищаем хендл от @, если он есть
+            const cleanHandle = handle.replace('@', '').trim();
+            
+            // Формируем строгий запрос: "@handle query"
+            // Внимание: символ @ заставляет YouTube фильтровать выдачу по конкретному автору!
+            const searchQuery = encodeURIComponent('@' + cleanHandle + ' ' + query);
             
             const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
             
