@@ -7,22 +7,15 @@
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const handle = urlParams.get('handle') || '';
-            const query = urlParams.get('query') || 'Carpetman Black Soil';
+            const query = urlParams.get('query') || 'Carpetman';
             
-            // Очищаем хендл от @, если он есть
             const cleanHandle = handle.replace('@', '').trim();
+            const encodedQuery = encodeURIComponent(query);
             
-            // Формируем строгий запрос: "@handle query"
-            // Внимание: символ @ заставляет YouTube фильтровать выдачу по конкретному автору!
-            const searchQuery = encodeURIComponent('@' + cleanHandle + ' ' + query);
+            // Формируем прямую ссылку на внутренний поиск канала
+            const channelSearchUrl = "https://www.youtube.com/@" + cleanHandle + "/search?query=" + encodedQuery;
             
-            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            
-            if (isMobile) {
-                window.location.href = "https://www.youtube.com/results?search_query=" + searchQuery;
-            } else {
-                window.location.href = "https://www.youtube.com/results?search_query=" + searchQuery;
-            }
+            window.location.href = channelSearchUrl;
         };
     </script>
 </head>
