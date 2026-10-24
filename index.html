@@ -7,13 +7,17 @@
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const handle = urlParams.get('handle') || '';
-            // Возвращаем полный поисковый запрос по умолчанию: Carpetman Black Soil
-            const query = urlParams.get('query') || 'Carpetman Black Soil';
+            let query = urlParams.get('query') || 'Carpetman | Black Soil';
+            
+            // Если в запросе пришло "Carpetman Black Soil", превращаем его в "Carpetman | Black Soil"
+            if (query === 'Carpetman Black Soil' || query === 'Carpetman%20Black%20Soil') {
+                query = 'Carpetman | Black Soil';
+            }
             
             const cleanHandle = handle.replace('@', '').trim();
             const encodedQuery = encodeURIComponent(query);
             
-            // Формируем прямую ссылку на внутренний поиск конкретного канала
+            // Отправляем поиск с оператором OR (|)
             const channelSearchUrl = "https://www.youtube.com/@" + cleanHandle + "/search?query=" + encodedQuery;
             
             window.location.href = channelSearchUrl;
