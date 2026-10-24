@@ -7,18 +7,14 @@
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const handle = urlParams.get('handle') || '';
-            let query = urlParams.get('query') || 'Carpetman | Black Soil';
-            
-            // Если в запросе пришло "Carpetman Black Soil", превращаем его в "Carpetman | Black Soil"
-            if (query === 'Carpetman Black Soil' || query === 'Carpetman%20Black%20Soil') {
-                query = 'Carpetman | Black Soil';
-            }
             
             const cleanHandle = handle.replace('@', '').trim();
-            const encodedQuery = encodeURIComponent(query);
             
-            // Отправляем поиск с оператором OR (|)
-            const channelSearchUrl = "https://www.youtube.com/@" + cleanHandle + "/search?query=" + encodedQuery;
+            // Используем стандартный оператор OR заглавными буквами для поиска по обоим ключевым словам
+            const searchQuery = encodeURIComponent('Carpetman OR Black Soil');
+            
+            // Формируем прямую ссылку на внутренний поиск конкретного канала
+            const channelSearchUrl = "https://www.youtube.com/@" + cleanHandle + "/search?query=" + searchQuery;
             
             window.location.href = channelSearchUrl;
         };
