@@ -7,12 +7,13 @@
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const handle = urlParams.get('handle') || '';
-            const query = urlParams.get('query') || 'Carpetman';
+            // Возвращаем полный поисковый запрос по умолчанию: Carpetman Black Soil
+            const query = urlParams.get('query') || 'Carpetman Black Soil';
             
             const cleanHandle = handle.replace('@', '').trim();
             const encodedQuery = encodeURIComponent(query);
             
-            // Формируем прямую ссылку на внутренний поиск канала
+            // Формируем прямую ссылку на внутренний поиск конкретного канала
             const channelSearchUrl = "https://www.youtube.com/@" + cleanHandle + "/search?query=" + encodedQuery;
             
             window.location.href = channelSearchUrl;
